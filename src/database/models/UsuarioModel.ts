@@ -9,32 +9,32 @@ import {Identifier} from "sequelize";
   
   @Table({
     timestamps: true,
-    tableName: "grade",
-    modelName: "GradeModel",
+    tableName: "usuario",
+    modelName: "UsuarioModel",
   })
 
-  class GradeModel extends Model{
+  class UsuarioModel extends Model{
 
     @Column({
       primaryKey: true,
       type: DataType.NUMBER,
     })
-    declare id_grade: Identifier;
+    declare id_usuario: Identifier;
 
     @Column({
-        type: DataType.NUMBER,
+        type: DataType.TEXT,
     })
-    declare anoletivo: number;
+    declare nome: string;
 
     @Column({
-        type: DataType.NUMBER,
+      type: DataType.TEXT,
     })
-    declare semestre: number;
+    declare email: string;
 
     @Column({
-      type: DataType.NUMBER,
+      type: DataType.TEXT,
     })
-    declare periodo: number;
+    declare senha: string;
 }
 
-export default GradeModel;
+export default UsuarioModel;

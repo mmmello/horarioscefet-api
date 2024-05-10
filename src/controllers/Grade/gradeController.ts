@@ -1,49 +1,36 @@
 import {Request, Response, NextFunction} from "express";
 import GradeRepository from "../../repositories/gradeRepository";
 
-export const criarGrade = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const criarGrade = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new GradeRepository();
-    const {anoletivo, semestre, horario, dia} = req.body;
-    await repository.insert({anoletivo, semestre, horario, dia});
+    const {anoletivo, semestre, periodo} = req.body;
+
+    await repository.insert({anoletivo, semestre, periodo});
 
     res.status(200).send("Dados inseridos com sucesso!");
 }
 
-export const listarGrades = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const listarGrades = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new GradeRepository();
     let grades = await repository.selectAll();
 
     res.status(200).json(grades);
 };
 
-export const editarGrade = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const editarGrade = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new GradeRepository();
-    const {anoletivo, semestre, horario, dia} = req.body;
+    const {anoletivo, semestre, periodo} = req.body;
+
     const id_grade = Number(req.query.id);
+
     const find = await repository.find(id_grade);
 
     try{
         if(find){
-            await repository.update(id_grade,{
-                anoletivo: anoletivo,
-                semestre: semestre,
-                horario: horario,
-                dia: dia
-            });
+            await repository.update(id_grade,{anoletivo: anoletivo, semestre: semestre, periodo: periodo});
+
             const grade = await repository.selectOne(id_grade);
-            res.status(200).json({message: "Grade editada com sucesso!", grade});
+            res.status(200).json({message: "Grade editada com sucesso!", grade: grade});
         }else{
             res.status(404).json({id_grade:`${id_grade}`, message:"Id inválido!"});
         }
@@ -52,13 +39,10 @@ export const editarGrade = async (
     }
 };
 
-export const deletarGrade = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const deletarGrade = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new GradeRepository();
     const id_grade = Number(req.query.id);
+    
     const find = await repository.find(id_grade);
 
     try{

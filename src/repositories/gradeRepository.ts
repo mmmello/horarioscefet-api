@@ -1,19 +1,18 @@
 import GradeModel from "../database/models/GradeModel";
-import {gradeInterface} from "../interfaces/gradeInterface";
+import {gradeDTO} from "../DTO/gradeDTO";
 import {Identifier, TEXT} from "sequelize";
 
-export default class AlunoRepository {
+export default class GradeRepository {
 
     async find(id_grade: Identifier) {
         return await GradeModel.findByPk(id_grade);
     }
 
-    async insert({anoletivo, semestre, horario, dia}: gradeInterface) {
+    async insert({anoletivo, semestre, periodo}: gradeDTO) {
         await GradeModel.bulkCreate([{
             anoletivo: anoletivo,
             semestre: semestre,
-            horario: horario,
-            dia: dia
+            periodo: periodo
         }]);
     }
 
@@ -29,8 +28,8 @@ export default class AlunoRepository {
         });
     }
 
-    async update(id_grade: number, {anoletivo, semestre, horario, dia}: gradeInterface) {
-        return GradeModel.update({anoletivo, semestre, horario, dia}, {
+    async update(id_grade: number, {anoletivo, semestre, periodo}: gradeDTO) {
+        return GradeModel.update({anoletivo, semestre, periodo}, {
             where: {
                 id_grade: id_grade,
             },
