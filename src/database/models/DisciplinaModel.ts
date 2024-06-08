@@ -5,7 +5,10 @@ import {
     DataType,
     BelongsToMany
 } from "sequelize-typescript";
+
 import {Identifier} from "sequelize";
+import AreaModel from './AreaModel';
+import AreaDisciplinarModel from './AreaDisciplinarModel';
   
   @Table({
     timestamps: true,
@@ -35,6 +38,9 @@ import {Identifier} from "sequelize";
       type: DataType.TEXT,
     })
     declare credito: string;
+
+    @BelongsToMany(() => AreaModel, () => AreaDisciplinarModel)
+    declare AreasDisciplinares: AreaModel[];
 }
 
 export default DisciplinaModel;

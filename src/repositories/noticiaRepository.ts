@@ -1,4 +1,5 @@
 import NoticiaModel from "../database/models/NoticiaModel";
+import PautaModel from "../database/models/PautaModel";
 import {noticiaDTO} from "../DTO/noticiaDTO";
 import {Identifier, TEXT} from "sequelize";
 
@@ -19,7 +20,11 @@ export default class DisciplinaRepository {
     }
 
     async selectAll() {
-        return NoticiaModel.findAll();
+        return NoticiaModel.findAll({
+            include: {
+                model: PautaModel
+            }
+        });
     }
 
     async selectOne(id_noticia: Identifier) {

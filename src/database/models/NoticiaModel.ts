@@ -5,7 +5,10 @@ import {
     DataType,
     BelongsToMany
 } from "sequelize-typescript";
+
 import {Identifier} from "sequelize";
+import PautaModel from './PautaModel';
+import PautaNoticiaModel from './PautaNoticiaModel';
   
   @Table({
     timestamps: true,
@@ -45,6 +48,9 @@ import {Identifier} from "sequelize";
       type: DataType.TEXT,
     })
     declare link_fonte: string;
+
+    @BelongsToMany(() => PautaModel, () => PautaNoticiaModel)
+    declare Pautas: PautaModel[];
 }
 
 export default NoticiaModel;

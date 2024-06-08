@@ -56,7 +56,7 @@ export const deletarDisciplina = async (req: Request, res: Response, next: NextF
                 res.status(200).json({message: "Erro ao deletar o disciplina!"});
 
         }else{
-            res.status(404).send({message: `Id: ${id_disciplina} inválido!`});
+            res.status(400).send({message: `Id: ${id_disciplina} inválido!`});
         }
     }catch (error: any){
         res.status(400).json({error: error.message});
