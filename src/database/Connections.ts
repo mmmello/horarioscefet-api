@@ -10,7 +10,7 @@ const sequelize = new Sequelize({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 0,
   models: [__dirname + "/models"],
   timezone: process.env.DB_TIMEZONE
 });
