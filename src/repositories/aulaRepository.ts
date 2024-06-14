@@ -1,5 +1,9 @@
 import AulaModel from "../database/models/AulaModel";
 import {aulaDTO} from "../DTO/aulaDTO";
+import ProfessorModel from "../database/models/ProfessorModel";
+import DisciplinaModel from "../database/models/DisciplinaModel";
+import SalaModel from "../database/models/SalaModel";
+import GradeModel from "../database/models/GradeModel";
 import {Identifier, TEXT} from "sequelize";
 
 export default class DisciplinaRepository {
@@ -21,7 +25,14 @@ export default class DisciplinaRepository {
     }
 
     async selectAll() {
-        return AulaModel.findAll();
+        return AulaModel.findAll({
+            include: [
+                {model: ProfessorModel},
+                {model: DisciplinaModel},
+                {model: SalaModel},
+                {model: GradeModel}
+            ]
+        });
     }
 
     async selectOne(id_aula: Identifier) {

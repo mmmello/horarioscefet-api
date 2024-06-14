@@ -3,9 +3,10 @@ import {
     Column,
     Model,
     DataType,
-    BelongsToMany
+    HasMany
 } from "sequelize-typescript";
 import {Identifier} from "sequelize";
+import AulaModel from './AulaModel';
   
   @Table({
     timestamps: true,
@@ -40,6 +41,9 @@ import {Identifier} from "sequelize";
       type: DataType.NUMBER,
     })
     declare acessivel: number;
+
+    @HasMany(() => AulaModel)
+    declare aulas: AulaModel[];
 }
 
 export default SalaModel;

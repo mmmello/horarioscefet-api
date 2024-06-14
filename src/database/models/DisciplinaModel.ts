@@ -3,12 +3,15 @@ import {
     Column,
     Model,
     DataType,
-    BelongsToMany
+    BelongsToMany,
+    HasMany
 } from "sequelize-typescript";
 
 import {Identifier} from "sequelize";
 import AreaModel from './AreaModel';
 import AreaDisciplinarModel from './AreaDisciplinarModel';
+import AulaModel from './AulaModel';
+import EmentaModel from './EmentaModel';
   
   @Table({
     timestamps: true,
@@ -41,6 +44,12 @@ import AreaDisciplinarModel from './AreaDisciplinarModel';
 
     @BelongsToMany(() => AreaModel, () => AreaDisciplinarModel)
     declare AreasDisciplinares: AreaModel[];
+
+    @HasMany(() => AulaModel)
+    declare aulas: AulaModel[];
+
+    @HasMany(() => EmentaModel)
+    declare ementas: EmentaModel[];
 }
 
 export default DisciplinaModel;

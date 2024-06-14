@@ -3,9 +3,10 @@ import {
     Column,
     Model,
     DataType,
-    BelongsToMany
+    HasMany
 } from "sequelize-typescript";
 import {Identifier} from "sequelize";
+import AulaModel from './AulaModel';
   
   @Table({
     timestamps: true,
@@ -30,6 +31,9 @@ import {Identifier} from "sequelize";
       type: DataType.TEXT,
     })
     declare email: string;
+
+    @HasMany(() => AulaModel)
+    declare aulas: AulaModel[];
 }
 
 export default ProfessorModel;

@@ -3,9 +3,11 @@ import {
     Column,
     Model,
     DataType,
-    BelongsToMany
+    BelongsTo,
+    ForeignKey
 } from "sequelize-typescript";
 import {Identifier} from "sequelize";
+import DisciplinaModel from './DisciplinaModel';
   
   @Table({
     timestamps: true,
@@ -26,10 +28,14 @@ import {Identifier} from "sequelize";
     })
     declare descricao: string;
 
+    @ForeignKey(() => DisciplinaModel)
     @Column({
       type: DataType.NUMBER,
     })
     declare id_disciplina: number;
+
+    @BelongsTo(() => DisciplinaModel)
+    declare disciplina: DisciplinaModel;
 }
 
 export default EmentaModel;

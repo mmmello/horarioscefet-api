@@ -1,5 +1,6 @@
 import DisciplinaModel from "../database/models/DisciplinaModel";
 import AreaModel from '../database/models/AreaModel';
+import EmentaModel from '../database/models/EmentaModel';
 import {disciplinaDTO} from "../DTO/disciplinaDTO";
 import {Identifier, TEXT} from "sequelize";
 
@@ -19,9 +20,14 @@ export default class DisciplinaRepository {
 
     async selectAll() {
         return DisciplinaModel.findAll({
-            include: {
-                model: AreaModel
-            }
+            include: [
+                {model: AreaModel},
+                {
+                    model: EmentaModel,
+                    limit: 1,
+                    order: [['createdAt', 'DESC']]
+                }
+            ]
         });
     }
 
