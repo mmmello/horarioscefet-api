@@ -32,12 +32,10 @@ export default class DisciplinaRepository {
                 {model: ProfessorModel},
                 {model: DisciplinaModel},
                 {model: SalaModel},
-                {model: GradeModel},
-                {
-                    model: GradeModel,
+                {model: GradeModel,
                     where: {
-                        anoletivo: anoletivo,
-                        periodo: periodo
+                        anoletivo:  anoletivo,
+                        periodo:    periodo
                     }
                 }
             ]
