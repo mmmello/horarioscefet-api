@@ -1,24 +1,25 @@
 import {Request, Response, NextFunction} from "express";
-import AulaRepository from "../../repositories/aulaRepository";
-import GradeRepository from "../../repositories/gradeRepository";
+
+import AulaRepository       from "../../repositories/aulaRepository";
+import GradeRepository      from "../../repositories/gradeRepository";
 import DisciplinaRepository from "../../repositories/disciplinaRepository";
-import ProfessorRepository from "../../repositories/professorRepository";
-import SalaRepository from "../../repositories/salaRepository";
+import ProfessorRepository  from "../../repositories/professorRepository";
+import SalaRepository       from "../../repositories/salaRepository";
 
 export const criarAula = async (req: Request, res: Response, next: NextFunction) => {
-    const repository = new AulaRepository();
+    const repository            = new AulaRepository();
 
-    const repository_grade = new GradeRepository();
+    const repository_grade      = new GradeRepository();
     const repository_disciplina = new DisciplinaRepository();
-    const repository_professor = new ProfessorRepository();
-    const repository_sala = new SalaRepository();
+    const repository_professor  = new ProfessorRepository();
+    const repository_sala       = new SalaRepository();
 
     const {horario_inicio, horario_fim, dia, id_grade, id_disciplina, id_professor, id_sala} = req.body;
 
-    const grade = await repository_grade.find(id_grade);
-    const disciplina = await repository_disciplina.find(id_disciplina);
-    const professor = await repository_professor.find(id_professor);
-    const sala = await repository_sala.find(id_sala);
+    const grade         = await repository_grade.find(id_grade);
+    const disciplina    = await repository_disciplina.find(id_disciplina);
+    const professor     = await repository_professor.find(id_professor);
+    const sala          = await repository_sala.find(id_sala);
 
     if (!grade){
         res.status(400).json({id_grade: `${id_grade}`, message: "Grade não encontrada!"});
@@ -36,7 +37,11 @@ export const criarAula = async (req: Request, res: Response, next: NextFunction)
 
 export const listarAulas = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new AulaRepository();
-    let aulas = await repository.selectAll();
+
+    const anoletivo  = Number(req.query.anoletivo);
+    const periodo    = Number(req.query.periodo);
+
+    let aulas        = await repository.selectAll({anoletivo, periodo});
 
     res.status(200).json(aulas);
 };
