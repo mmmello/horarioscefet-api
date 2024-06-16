@@ -40,8 +40,9 @@ export const listarAulas = async (req: Request, res: Response, next: NextFunctio
 
     const anoletivo  = Number(req.query.anoletivo);
     const periodo    = Number(req.query.periodo);
+    const optativa    = Number(req.query.optativa);
 
-    let aulas        = await repository.selectAll({anoletivo, periodo});
+    let aulas        = await repository.selectAll({anoletivo, periodo}, {optativa});
 
     res.status(200).json(aulas);
 };

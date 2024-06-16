@@ -42,6 +42,11 @@ import EmentaModel from './EmentaModel';
     })
     declare credito: string;
 
+    @Column({
+      type: DataType.NUMBER,
+    })
+    declare optativa: number;
+
     @BelongsToMany(() => AreaModel, () => AreaDisciplinarModel)
     declare AreasDisciplinares: AreaModel[];
 

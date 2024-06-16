@@ -3,9 +3,9 @@ import DisciplinaRepository from "../../repositories/disciplinaRepository";
 
 export const criarDisciplina = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new DisciplinaRepository();
-    const {nome, carga_horaria, credito} = req.body;
+    const {nome, carga_horaria, credito, optativa} = req.body;
 
-    await repository.insert({nome, carga_horaria, credito});
+    await repository.insert({nome, carga_horaria, credito, optativa});
 
     res.status(200).send("Dados inseridos com sucesso!");
 }
@@ -19,7 +19,7 @@ export const listarDisciplinas = async (req: Request, res: Response, next: NextF
 
 export const editarDisciplina = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new DisciplinaRepository();
-    const {nome, carga_horaria, credito} = req.body;
+    const {nome, carga_horaria, credito, optativa} = req.body;
 
     const id_disciplina = Number(req.query.id);
 
@@ -27,7 +27,7 @@ export const editarDisciplina = async (req: Request, res: Response, next: NextFu
 
     try{
         if(find){
-            await repository.update(id_disciplina, {nome: nome, carga_horaria: carga_horaria, credito: credito});
+            await repository.update(id_disciplina, {nome: nome, carga_horaria: carga_horaria, credito: credito, optativa: optativa});
 
             const disciplina = await repository.selectOne(id_disciplina);
             res.status(200).json({message: "Disciplina editada com sucesso!", disciplina: disciplina});

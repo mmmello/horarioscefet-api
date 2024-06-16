@@ -75,6 +75,7 @@ CREATE TABLE `disciplina` (
 	`nome` VARCHAR(255) NOT NULL,
 	`carga_horaria` INT NOT NULL,
 	`credito` INT NOT NULL,
+	`optativa` TINYINT(1) NOT NULL,
 	`createdat` DATETIME NOT NULL,
 	`updatedat` DATETIME NOT NULL,
 	`deletedat` DATETIME

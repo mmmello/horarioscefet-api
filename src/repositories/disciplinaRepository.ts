@@ -10,11 +10,12 @@ export default class DisciplinaRepository {
         return await DisciplinaModel.findByPk(id_disciplina);
     }
 
-    async insert({nome, carga_horaria, credito}: disciplinaDTO) {
+    async insert({nome, carga_horaria, credito, optativa}: disciplinaDTO) {
         await DisciplinaModel.bulkCreate([{
             nome: nome,
             carga_horaria: carga_horaria,
-            credito: credito
+            credito: credito,
+            optativa: optativa
         }]);
     }
 
@@ -39,8 +40,8 @@ export default class DisciplinaRepository {
         });
     }
 
-    async update(id_disciplina: number, {nome, carga_horaria, credito}: disciplinaDTO) {
-        return DisciplinaModel.update({nome, carga_horaria, credito}, {
+    async update(id_disciplina: number, {nome, carga_horaria, credito, optativa}: disciplinaDTO) {
+        return DisciplinaModel.update({nome, carga_horaria, credito, optativa}, {
             where: {
                 id_disciplina: id_disciplina,
             },

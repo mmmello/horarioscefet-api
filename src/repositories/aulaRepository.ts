@@ -1,5 +1,6 @@
 import {aulaDTO}        from "../DTO/aulaDTO";
 import {gradeDTO}       from "../DTO/gradeDTO";
+import { disciplinaDTO} from "../DTO/disciplinaDTO";
 import {Identifier}     from "sequelize";
 
 import AulaModel        from "../database/models/AulaModel";
@@ -26,11 +27,15 @@ export default class DisciplinaRepository {
         }]);
     }
 
-    async selectAll({anoletivo, periodo}: gradeDTO) {
+    async selectAll({anoletivo, periodo}: gradeDTO, {optativa}: disciplinaDTO) {
         return AulaModel.findAll({
             include: [
                 {model: ProfessorModel},
-                {model: DisciplinaModel},
+                {model: DisciplinaModel,
+                    where: {
+                        optativa: optativa
+                    }
+                },
                 {model: SalaModel},
                 {model: GradeModel,
                     where: {
