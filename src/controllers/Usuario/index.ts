@@ -5,9 +5,9 @@ import authMiddleware from "../../middlewares/authMiddleware";
 
 const usuario: Router = express.Router();
 
-usuario.post('/usuario', criarUsuario);
-usuario.get('/usuario', listarUsuarios);
+usuario.post('/usuario', authMiddleware, criarUsuario);
+usuario.get('/usuario', authMiddleware, listarUsuarios);
 usuario.put('/usuario', authMiddleware, editarUsuario);
-usuario.delete('/usuario', deletarUsuario);
+usuario.delete('/usuario', authMiddleware, deletarUsuario);
 usuario.post('/login', login);
 export default usuario;

@@ -18,10 +18,10 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         return res.status(401).json({ error: 'Email ou senha inválidos' });
     }
 
-    /*const isMatch = await bcrypt.compare(senha, usuario.senha);
+    const isMatch = await bcrypt.compare(senha, usuario.senha);
     if (!isMatch) {
         return res.status(401).json({ error: 'Email ou senha inválidos' });
-    }*/
+    }
 
     const token = jwt.sign({ userId: usuario.id_usuario }, JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
@@ -29,7 +29,10 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
 export const criarUsuario = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new UsuarioRepository();
-    const {nome, email, senha} = req.body;
+    const {nome, email} = req.body;
+    var {senha} = req.body;
+
+    senha = await bcrypt.hash(senha, 10);
 
     await repository.insert({nome, email, senha});
 
