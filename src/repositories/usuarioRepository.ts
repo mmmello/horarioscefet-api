@@ -43,4 +43,12 @@ export default class UsuarioRepository {
             },
         });
     }
+
+    async findByEmail(email: string) {
+        return await UsuarioModel.findOne({
+            where: {
+                email: email
+            }
+        });
+    }
 }

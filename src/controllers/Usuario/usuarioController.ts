@@ -1,6 +1,32 @@
 import {Request, Response, NextFunction} from "express";
 import UsuarioRepository from "../../repositories/usuarioRepository";
 
+import jwt      from 'jsonwebtoken';
+import bcrypt   from 'bcryptjs';
+import dotenv   from 'dotenv';
+
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET ? process.env.JWT_SECRET : '0' ;
+
+export const login = async (req: Request, res: Response, next: NextFunction) => {
+    const repository = new UsuarioRepository();
+    const {email, senha} = req.body;
+
+    const usuario = await repository.findByEmail(email);
+    if (!usuario) {
+        return res.status(401).json({ error: 'Email ou senha inválidos' });
+    }
+
+    /*const isMatch = await bcrypt.compare(senha, usuario.senha);
+    if (!isMatch) {
+        return res.status(401).json({ error: 'Email ou senha inválidos' });
+    }*/
+
+    const token = jwt.sign({ userId: usuario.id_usuario }, JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token });
+}
+
 export const criarUsuario = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new UsuarioRepository();
     const {nome, email, senha} = req.body;

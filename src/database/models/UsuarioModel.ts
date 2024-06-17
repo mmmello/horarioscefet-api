@@ -3,9 +3,10 @@ import {
     Column,
     Model,
     DataType,
-    BelongsToMany
+    BeforeCreate
 } from "sequelize-typescript";
 import {Identifier} from "sequelize";
+import bcrypt from 'bcryptjs';
   
   @Table({
     timestamps: true,
@@ -35,6 +36,12 @@ import {Identifier} from "sequelize";
       type: DataType.TEXT,
     })
     declare senha: string;
+
+    @BeforeCreate
+    static async hashPassword(instance: UsuarioModel) {
+        const salt = await bcrypt.genSalt(10);
+        instance.senha = await bcrypt.hash(instance.senha, salt);
+    }
 }
 
 export default UsuarioModel;
