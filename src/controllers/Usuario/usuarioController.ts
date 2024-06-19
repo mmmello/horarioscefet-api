@@ -48,7 +48,10 @@ export const listarUsuarios = async (req: Request, res: Response, next: NextFunc
 
 export const editarUsuario = async (req: Request, res: Response, next: NextFunction) => {
     const repository = new UsuarioRepository();
-    const {nome, email, senha} = req.body;
+    const {nome, email} = req.body;
+
+    var {senha} = req.body;
+    senha = await bcrypt.hash(senha, 10);
 
     const id_usuario = Number(req.query.id);
 

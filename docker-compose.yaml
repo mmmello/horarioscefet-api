@@ -2,7 +2,7 @@ version: "3"
 services:
  app:
    # Nome do serviço
-   container_name: api_knex
+   container_name: horarioscefet_api
    # Build do Dockerfile na raiz do projeto
    build: .
    # Mapeia a porta 3000 do contêiner para a porta 3000 do host
